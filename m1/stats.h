@@ -39,7 +39,7 @@ unsigned char find_median(unsigned char *array, unsigned int size);
  *
  * @return Mean value from the given array
  */
-unsigned char find_mean(unsigned char *array, unsigned int size);
+unsigned int find_mean(unsigned char *array, unsigned int size);
 
 /**
  * @brief Given an array of data and a length, returns the maximum value
