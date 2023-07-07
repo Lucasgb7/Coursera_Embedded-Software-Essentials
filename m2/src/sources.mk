@@ -8,10 +8,22 @@
 # misuse of this material. 
 #
 #*****************************************************************************
+ifeq ($(PLATFORM), MSP432)
+    SOURCES =  main.c \
+	           memory.c \
+			   interrupts_msp432p401r_gcc.c \
+			   startup_msp432p401r_gcc.c \
+			   system_msp432p401r.c
 
-# Add your Source files to this variable
-SOURCES =
+    INCLUDES = -I../include/CMSIS \
+			   -I../include/common \
+			   -I../include/msp432 \
+			   -I../ 
+endif
 
-# Add your include paths to this variable
-INCLUDES = 
+ifeq ($(PLATFORM), HOST)
+    SOURCES = main.c \
+	          memory.c
 
+    INCLUDES = -I../include/common
+endif
