@@ -66,14 +66,21 @@ Based on your code and the linker file , specify the following details for the s
 </td>
 </tr> </table>
 
-- **g2** = 2512
+- **g1** = 2332 
+- **g2** = 2512 / WRONG
 - **g3** = 2432
 - **g4** = 2332
-- **g5** = 2332
-- **Hello Wolrd** (String)= 2131 / 2111 (wrong)
-- **f3** = 2131
-- **f1** = 2131
-- **l3** = 2131
+- **g5** = 2332 / Wrong
+
 - **l2** = 2131
-- **func()** = 1712
-- **N** = 2512 (wrong)
+- **l2 (dereferenced)** = 2233
+- **l3** = 2131
+
+- **f1** = 2131
+- **f2** = 2331 / 2332
+- **f3** = 2131
+
+- **SOME_VALUE** and **N** = 2512 / 2412 / 1512 / 1712 / WRONG
+- **Hello World** (String) = 2131 / 2111 / 2411 / 2512 / 2712 / 2413 /  2112 / 1712 / WRONG
+
+- **func()** and **main()** = 1712
