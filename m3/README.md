@@ -66,21 +66,20 @@ Based on your code and the linker file , specify the following details for the s
 </td>
 </tr> </table>
 
-- **g1** = 2332 
-- **g2** = 2512 / WRONG
-- **g3** = 2432
-- **g4** = 2332
-- **g5** = 2332 / Wrong
-
-- **l2** = 2131
-- **l2 (dereferenced)** = 2233
-- **l3** = 2131
-
-- **f1** = 2131
-- **f2** = 2331 / 2332
-- **f3** = 2131
-
-- **SOME_VALUE** and **N** = 2512 / 2412 / 1512 / 1712 / WRONG
-- **Hello World** (String) = 2131 / 2111 / 2411 / 2512 / 2712 / 2413 /  2112 / 1712 / WRONG
-
-- **func()** and **main()** = 1712
+- ```g1```: data | bss | RW | program
+- ```g2```: code | const | R | program
+- ```g3```: data | data | RW | program
+- ```g4```: data | bss | RW | program
+- ```g5```: data | data | RW | program
+- ```N```: none | none | none | none
+- ```l1```: register | none | RW | function
+- ```l2```: data | stack | RW | function
+- ```*l2 (dereferenced)```: data | heap | RW | indefinite
+- ```l3```: data | stack | RW | function
+- ```SOME_VALUE```: none | none | none | none
+- ```f1```: data | stack | RW | function
+- ```f2```: data | bss | RW | program
+- ```f3```: data | stack | RW | function
+- ```Hello World! (The string)```: code | rodata | R | Program
+- ```main()```: code | text | R | Program
+- ```func()```: code | text | R | Program
