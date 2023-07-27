@@ -8,9 +8,8 @@
 # misuse of this material. 
 #
 #*****************************************************************************
-
 #------------------------------------------------------------------------------
-# Simple makefile for Cortex M4 build system
+# Simple makefile to support multiple build platforms
 #
 # Use: make [TARGET] [PLATFORM-OVERRIDES]
 #
@@ -23,18 +22,25 @@
 #	   			clean: Removes all generated files.
 # 
 # Platform Overrides:
-# 					HOST: Uses gcc compiler
-#					MSP432: Uses arm-none-eabi-gcc compiler
+# 					HOST: Uses gcc compiler (default)
+#					MSP432: Uses arm-none-eabi-gcc compiler (cross-compiled)
 #
+# @author: Lucas Cunha @Lucasgb7
+# @date: July 26 2023
 #------------------------------------------------------------------------------
 include sources.mk
+
+# Platform Overrides
+PLATFORM = HOST
+VERBOSE = ENABLE
+COURSE = COURSE1
 
 # Platform Checking
 ifeq ($(PLATFORM), MSP432)
 #	Compiler Flags Defines
 	CC = arm-none-eabi-gcc
 	LD = arm-none-eabi-ld
-	LINKER_FILE = ../msp432p401r.lds
+	LINKER_FILE = msp432p401r.lds
 	LDFLAGS = -Wl,-Map=$(TARGET).map -T $(LINKER_FILE)
 #	Architecture Specific Flags 
 	CPU = cortex-m4
@@ -58,9 +64,17 @@ else
 
 endif
 
+ifeq ($(VERBOSE), ENABLE)
+	CPPFLAGS += -DVERBOSE
+endif
+
+ifeq ($(COURSE), COURSE1)
+	CPPFLAGS += -DCOURSE1
+endif
+
 # Compiler TARGET and Compiler (Generic) Flags
-TARGET = c1m2
-CFLAGS = -Wall -Werror -g -O0 -std=c99 -D$(PLATFORM) $(ARMFLAGS)
+TARGET = final_assessment
+CFLAGS = -Wall -Werror -g -O0 -std=c99 -D$(PLATFORM) $(CPPFLAGS) $(ARMFLAGS) 
 
 # Files from SOURCE
 OBJECTS := $(SOURCES:.c=.o)
@@ -69,7 +83,7 @@ ASSEMBLY := $(SORUCES:.c=.asm)
 DEPENDENCIES := $(SOURCES:.c=.d)
 
 # It helps to delete files when cleaning
-GENERATED_FILES = *.asm *.i *.o *.d *.map
+GENERATED_FILES =*.asm *.i *.o *.d *.map
 
 # Targets
 %.i: %.c
