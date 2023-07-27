@@ -18,8 +18,12 @@
  *
  * @author Alex Fosdick
  * @date April 1 2017
- *
+ * 
+ * @author Lucas Cunha
+ * @date July 25 2023
  */
+#include <stdlib.h>
+#include <stdint.h>
 #include "memory.h"
 
 /***********************************************************
@@ -48,3 +52,85 @@ void clear_all(char * ptr, unsigned int size){
   set_all(ptr, 0, size);
 }
 
+
+/***********************************************************
+ Memory manipulation functions
+***********************************************************/
+
+uint8_t * my_memmove(uint8_t *src, uint8_t *dst, size_t length) {
+    // Check if source and destination regions overlap
+    if (src < dst && src + length > dst) {
+        // Overlapping, copy from end to start to avoid data corruption
+        src += length;
+        dst += length;
+
+        while (length--) {
+            *(--dst) = *(--src);
+        }
+    } else {
+        // Non-overlapping, copy from start to end
+        while (length--) {
+            *dst++ = *src++;
+        }
+    }
+    return dst; // Return the pointer to the destination (dst)
+}
+
+uint8_t *my_memcopy(uint8_t *src, uint8_t *dst, size_t length) {
+   // Perform the copy using pointer arithmetic
+    while (length--) {
+        *dst++ = *src++;
+    }
+    return dst; // Return the pointer to the destination (dst)
+}
+
+uint8_t *my_memset(uint8_t *src, size_t length, uint8_t value) {
+    // Perform the memset using pointer arithmetic
+    while (length--) {
+        *src++ = value;
+    }
+    return src; // Return the pointer to the source (src)
+}
+
+uint8_t *my_memzero(uint8_t *src, size_t length) {
+    // Perform the memzero using pointer arithmetic
+    while (length--) {
+        *src++ = 0;
+    }
+    return src; // Return the pointer to the source (src)
+}
+
+uint8_t *my_reverse(uint8_t *src, size_t length) {
+    uint8_t *start = src;
+    uint8_t *end = src + length - 1;
+    // Perform the reverse using pointer arithmetic
+    while (start < end) {
+        // Swap the bytes pointed by start and end
+        uint8_t temp = *start;
+        *start = *end;
+        *end = temp;
+        // Move pointers inward
+        start++;
+        end--;
+    }
+    return src; // Return the pointer to the source (src)
+}
+
+int32_t *reserve_words(size_t length) {
+    // Check for zero-length allocation
+    if (length == 0) {
+        return NULL;
+    }
+    // Allocate memory for the specified number of words
+    int32_t *ptr = (int32_t *)malloc(length * sizeof(int32_t));
+
+    return ptr; // Return the pointer to the allocated memory or NULL if allocation failed
+}
+
+void free_words(uint32_t *src) {
+    // Check if the src pointer is not NULL before freeing
+    if (src != NULL) {
+        // Free the dynamically allocated memory
+        free(src);
+    }
+}
