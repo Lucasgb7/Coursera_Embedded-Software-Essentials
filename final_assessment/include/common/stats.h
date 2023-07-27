@@ -21,6 +21,17 @@
 #ifndef __STATS_H__
 #define __STATS_H__
 
+#ifdef VERBOSE
+/**
+ * @brief Print an array in formated way
+ *
+ * @param array unsigned char *array
+ * @param size unsigned int size of the array
+ *
+ */
+void print_array(unsigned char *array, unsigned int size);
+#endif
+
 /**
  * @brief Given an array of data and a length, returns the median value
  *

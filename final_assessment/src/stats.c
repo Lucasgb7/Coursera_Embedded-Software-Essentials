@@ -26,18 +26,23 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "stats.h"
+#include "platform.h"
 
 /* Size of the Data Set */
 #define SIZE (40)
 
+#ifdef VERBOSE
+
 void print_array(unsigned char *array, unsigned int size) {
   unsigned int i;
-  printf("[");
+  PRINTF("[");
   for(i = 0; i < size; i++) {
-    if (i == size - 1) printf("%u]", array[i]);
-    else (printf("%u, ", array[i]));
+    if (i == size - 1) PRINTF("%u]", array[i]);
+    else (PRINTF("%u, ", array[i]));
   }
 }
+
+#endif
 
 void print_statistics(unsigned char *array, unsigned int size) {
   printf("\n\n--------------- STATISTICS ---------------\n");
@@ -67,7 +72,7 @@ void print_statistics(unsigned char *array, unsigned int size) {
   printf("\n-------------------------------------------\n");
 }
 
-void main() {
+void stats(void) {
 
   unsigned char test[SIZE] = { 34, 201, 190, 154,   8, 194,   2,   6,
                               114, 88,   45,  76, 123,  87,  25,  23,
