@@ -5,11 +5,16 @@ In this programming assignment, you will get more experience with Git Version co
 ## Build Instructions
 
 On the "final_assessment" folder type: 
+
 ``` Shell
 make build
 ```
+
 By default, the flags *-DVERBOSE -DHOST -DCOURSE1* are called. (You can change it by passing on the terminal or change in the Makefile)
 
+``` Shell
+./final_assessment.out
+```
 
 ### *main.c* 
 
