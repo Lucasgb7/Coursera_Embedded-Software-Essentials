@@ -41,8 +41,8 @@ int8_t test_data1() {
   digits = my_itoa( num, ptr, BASE_16);   
   value = my_atoi( ptr, digits, BASE_16);
   #ifdef VERBOSE
-  PRINTF("  Initial number: %d\n", num);
-  PRINTF("  Final Decimal number: %d\n", value);
+  PRINTF("- Initial number: %d\n", num);
+  PRINTF("- Final Decimal number: %d\n", value);
   #endif
   free_words( (uint32_t*)ptr );
 
@@ -70,8 +70,8 @@ int8_t test_data2() {
   digits = my_itoa( num, ptr, BASE_10);
   value = my_atoi( ptr, digits, BASE_10);
   #ifdef VERBOSE
-  PRINTF("  Initial Decimal number: %d\n", num);
-  PRINTF("  Final Decimal number: %d\n", value);
+  PRINTF("- Initial Decimal number: %d\n", num);
+  PRINTF("- Final Decimal number: %d\n", value);
   #endif
   free_words( (uint32_t*)ptr );
 
@@ -106,8 +106,10 @@ int8_t test_memmove1() {
     set[i] = i;
   }
 
+  PRINTF("Original ARRAY: ");
   print_array(set, MEM_SET_SIZE_B);
   my_memmove(ptra, ptrb, TEST_MEMMOVE_LENGTH);
+  PRINTF("\nModified ARRAY: ");
   print_array(set, MEM_SET_SIZE_B);
 
   for (i = 0; i < TEST_MEMMOVE_LENGTH; i++)
@@ -144,8 +146,10 @@ int8_t test_memmove2() {
     set[i] = i;
   }
 
+  PRINTF("Original ARRAY: ");
   print_array(set, MEM_SET_SIZE_B);
   my_memmove(ptra, ptrb, TEST_MEMMOVE_LENGTH);
+  PRINTF("\nModified ARRAY: ");
   print_array(set, MEM_SET_SIZE_B);
 
   for (i = 0; i < TEST_MEMMOVE_LENGTH; i++)
@@ -182,9 +186,11 @@ int8_t test_memmove3() {
   {
     set[i] = i;
   }
-
+  
+  PRINTF("Original ARRAY: ");
   print_array(set, MEM_SET_SIZE_B);
   my_memmove(ptra, ptrb, TEST_MEMMOVE_LENGTH);
+  PRINTF("\nModified ARRAY: ");
   print_array(set, MEM_SET_SIZE_B);
 
   for (i = 0; i < TEST_MEMMOVE_LENGTH; i++)
@@ -223,8 +229,10 @@ int8_t test_memcopy() {
     set[i] = i;
   }
 
+  PRINTF("Original ARRAY: ");
   print_array(set, MEM_SET_SIZE_B);
   my_memcopy(ptra, ptrb, TEST_MEMMOVE_LENGTH);
+  PRINTF("\nModified ARRAY: ");
   print_array(set, MEM_SET_SIZE_B);
 
   for (i = 0; i < TEST_MEMMOVE_LENGTH; i++)
@@ -262,10 +270,13 @@ int8_t test_memset()
     set[i] = i;
   }
 
+  PRINTF("Original ARRAY: ");
   print_array(set, MEM_SET_SIZE_B);
   my_memset(ptra, MEM_SET_SIZE_B, 0xFF);
+  PRINTF("\nValued ARRAY: ");
   print_array(set, MEM_SET_SIZE_B);
   my_memzero(ptrb, MEM_ZERO_LENGTH);
+  PRINTF("\nZero's ARRAY: ");
   print_array(set, MEM_SET_SIZE_B);
   
   /* Validate Set & Zero Functionality */
@@ -304,9 +315,11 @@ int8_t test_reverse()
   }
   
   my_memcopy(set, copy, MEM_SET_SIZE_B);
-
+  
+  PRINTF("Original ARRAY: ");
   print_array(set, MEM_SET_SIZE_B);
   my_reverse(set, MEM_SET_SIZE_B);
+  PRINTF("\nReversed ARRAY: ");
   print_array(set, MEM_SET_SIZE_B);
 
   for (i = 0; i < MEM_SET_SIZE_B; i++)
@@ -327,13 +340,21 @@ void course1(void)
   int8_t failed = 0;
   int8_t results[TESTCOUNT];
 
+  PRINTF("==================== FINAL ASSESSMENT ====================");
   results[0] = test_data1();
+  PRINTF("----------------------------------------\n");
   results[1] = test_data2();
+  PRINTF("----------------------------------------\n");
   results[2] = test_memmove1();
+  PRINTF("\n----------------------------------------\n");
   results[3] = test_memmove2();
+  PRINTF("\n----------------------------------------\n");
   results[4] = test_memmove3();
+  PRINTF("\n----------------------------------------\n");
   results[5] = test_memcopy();
+  PRINTF("\n----------------------------------------\n");
   results[6] = test_memset();
+  PRINTF("\n----------------------------------------\n");
   results[7] = test_reverse();
 
   for ( i = 0; i < TESTCOUNT; i++) 
@@ -341,9 +362,9 @@ void course1(void)
     failed += results[i];
   }
 
-  PRINTF("--------------------------------\n");
+  PRINTF("\n========================================\n");
   PRINTF("Test Results:\n");
-  PRINTF("  PASSED: %d / %d\n", (TESTCOUNT - failed), TESTCOUNT);
-  PRINTF("  FAILED: %d / %d\n", failed, TESTCOUNT);
-  PRINTF("--------------------------------\n");
+  PRINTF("- PASSED: %d / %d\n", (TESTCOUNT - failed), TESTCOUNT);
+  PRINTF("- FAILED: %d / %d\n", failed, TESTCOUNT);
+  PRINTF("========================================\n");
 }
